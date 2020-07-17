@@ -1,13 +1,7 @@
 import * as fastify from 'fastify';
 
 declare module 'fastify' {
-  interface FastifyRequest<
-    HttpRequest,
-    Query = fastify.DefaultQuery,
-    Params = fastify.DefaultParams,
-    Headers = fastify.DefaultHeaders,
-    Body = any
-  > {
+  interface FastifyRequest {
     /** Allows to access or modify the session data. */
     session: Session;
     /** A session store. */
@@ -27,7 +21,7 @@ declare module 'fastify' {
 }
 
 declare interface FastifySessionPlugin<HttpServer, HttpRequest, HttpResponse>
-  extends fastify.Plugin<HttpServer, HttpRequest, HttpResponse, FastifySessionPlugin.Options> {
+  extends fastify.FastifyPluginCallback<FastifySessionPlugin.Options> {
   Store: { new (options?: any): FastifySessionPlugin.SessionStore };
 }
 
