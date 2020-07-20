@@ -1,4 +1,4 @@
-import * as fastify from 'fastify';
+import { FastifyPluginCallback } from "fastify";
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -18,11 +18,6 @@ declare module 'fastify' {
     /** Regenerates the session by generating a new `sessionId`. */
     regenerate(): void;
   }
-}
-
-declare interface FastifySessionPlugin<HttpServer, HttpRequest, HttpResponse>
-  extends fastify.FastifyPluginCallback<FastifySessionPlugin.Options> {
-  Store: { new (options?: any): FastifySessionPlugin.SessionStore };
 }
 
 declare namespace FastifySessionPlugin {
@@ -84,6 +79,6 @@ declare namespace FastifySessionPlugin {
   }
 }
 
-declare var FastifySessionPlugin: FastifySessionPlugin<any, any, any>;
+declare const FastifySessionPlugin: FastifyPluginCallback<FastifySessionPlugin.Options>;
 
 export = FastifySessionPlugin;
